@@ -22,12 +22,6 @@ ENV PATH $PATH:/home/user/.cargo/bin
 RUN mkdir $HOME/.config
 RUN starship preset pure-preset -o ~/.config/starship.toml
 
-# nvim
-
-RUN sudo apt-get install -y neovim
-RUN git clone https://github.com/n4mlz/dotfiles.git
-RUN cp -r dotfiles/files/.config/nvim ~/.config/
-
 # zoxide bat eza colordiff
 
 RUN sudo apt-get install -y zoxide bat colordiff

@@ -10,7 +10,6 @@ if type batcat >/dev/null 2>&1; then
 fi
 
 alias ll='ls -la --group-directories-first'
-alias vim='nvim'
 alias gdb='gdb -q'
 alias python='python3'
 
