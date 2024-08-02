@@ -13,19 +13,24 @@ RUN echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 USER user
 WORKDIR /home/user
 RUN git config --global user.email "n4mlz.dev@gmail.com" && git config --global user.name "n4mlz"
+COPY ./config/.bashrc /home/user/.bashrc
 
-# zsh
+# prompt
+RUN sudo apt-get install -y cargo cmake libssl-dev pkg-config
+RUN cargo install starship --locked
+ENV PATH $PATH:/home/user/.cargo/bin
+RUN mkdir $HOME/.config
+RUN starship preset pure-preset -o ~/.config/starship.toml
 
-# RUN sudo apt-get install -y zsh cargo cmake libssl-dev pkg-config
-# RUN cargo install sheldon starship --locked
-# RUN git clone https://github.com/n4mlz/dotfiles.git && sudo chmod -R 777 dotfiles && ./dotfiles/scripts/deploy.sh
-# RUN echo passwd | chsh -s /bin/zsh
-# RUN zsh
-# RUN export PATH="$HOME/.cargo/bin:$PATH"
+# nvim
 
-# zoxide bat eza colordiff nvim
+RUN sudo apt-get install -y neovim
+RUN git clone https://github.com/n4mlz/dotfiles.git
+RUN cp -r dotfiles/files/.config/nvim ~/.config/
 
-RUN sudo apt-get install -y zoxide bat neovim colordiff
+# zoxide bat eza colordiff
+
+RUN sudo apt-get install -y zoxide bat colordiff
 RUN sudo apt-get install -y gpg
 RUN sudo mkdir -p /etc/apt/keyrings
 RUN wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
@@ -37,3 +42,4 @@ RUN sudo apt-get install -y eza
 # gdb
 
 # pwntools
+
