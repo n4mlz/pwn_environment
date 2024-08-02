@@ -34,6 +34,10 @@ RUN sudo apt-get update
 RUN sudo apt-get install -y eza
 
 # gdb
+RUN git clone https://github.com/apogiatzis/gdb-peda-pwndbg-gef.git
+WORKDIR /home/user/gdb-peda-pwndbg-gef
+RUN ./install.sh
+WORKDIR /home/user
 
 # pwntools
 
